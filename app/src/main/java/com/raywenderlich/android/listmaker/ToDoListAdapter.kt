@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ToDoListAdapter : RecyclerView.Adapter<ToDoListViewHolder>() {
 
+    private val toDoLists = arrayOf("Android Development", "House Work", "Errands")
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoListViewHolder {
         TODO("Not yet implemented")
     }
@@ -14,6 +16,6 @@ class ToDoListAdapter : RecyclerView.Adapter<ToDoListViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return toDoLists.size
     }
 }
