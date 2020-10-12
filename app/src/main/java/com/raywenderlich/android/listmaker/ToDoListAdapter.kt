@@ -4,12 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class ToDoListAdapter : RecyclerView.Adapter<ToDoListViewHolder>() {
+class ToDoListAdapter(val lists:  ArrayList<TaskList>) : RecyclerView.Adapter<ToDoListViewHolder>() {
 
     //private val toDoLists = arrayOf("Android Development", "House Work", "Errands", "Shopping")
-    private var toDoLists = mutableListOf("Android Development", "House Work", "Errands", "Shopping")
+    //private var toDoLists = mutableListOf("Android Development", "House Work", "Errands", "Shopping")
 
     // Lesson 11, 14
+    /*
     fun addNewItem(listName: String = "") {
 
         // Lesson 14
@@ -22,6 +23,8 @@ class ToDoListAdapter : RecyclerView.Adapter<ToDoListViewHolder>() {
         // simply tells the RecyclerView to reload all the data
         notifyDataSetChanged()
     }
+
+     */
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoListViewHolder {
@@ -39,11 +42,22 @@ class ToDoListAdapter : RecyclerView.Adapter<ToDoListViewHolder>() {
         // when this method is called, we pass in a ViewHolder
         // Lesson 9 - Bind Data
         holder.listPositionTextView.text = (position + 1).toString()  // 0-based, so +1
-        holder.listTitleTextView.text = toDoLists[position]
+        //holder.listTitleTextView.text = toDoLists[position]
+
+        // Lesson 17
+        holder.listTitleTextView.text = lists[position].name
 
     }
 
     override fun getItemCount(): Int {
-        return toDoLists.size
+        //return toDoLists.size
+
+        // Lesson 17
+        return lists.size
+    }
+
+    fun addList(list: TaskList) {
+        lists.add(list)
+        notifyItemInserted(lists.size - 1)
     }
 }
