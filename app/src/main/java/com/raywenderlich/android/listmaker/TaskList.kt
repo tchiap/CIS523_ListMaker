@@ -5,6 +5,10 @@ import android.os.Parcelable
 
 class TaskList(val name: String, val tasks: ArrayList<String> = ArrayList()) : Parcelable {
 
+
+
+
+    // Lesson 24
     // constructor -- calls primary constructor
 
     constructor(parcel: Parcel) : this(

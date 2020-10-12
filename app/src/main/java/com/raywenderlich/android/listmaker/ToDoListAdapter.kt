@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class ToDoListAdapter(val lists:  ArrayList<TaskList>) : RecyclerView.Adapter<ToDoListViewHolder>() {
+class ToDoListAdapter(private val lists:  ArrayList<TaskList>, val clickListener: TodoListClickListener) : RecyclerView.Adapter<ToDoListViewHolder>() {
 
     //private val toDoLists = arrayOf("Android Development", "House Work", "Errands", "Shopping")
     //private var toDoLists = mutableListOf("Android Development", "House Work", "Errands", "Shopping")
@@ -26,6 +26,10 @@ class ToDoListAdapter(val lists:  ArrayList<TaskList>) : RecyclerView.Adapter<To
 
      */
 
+    // Create an interface for the To-do list click listener
+    interface TodoListClickListener {
+        fun listItemClicked(list:  TaskList)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoListViewHolder {
 
@@ -46,6 +50,11 @@ class ToDoListAdapter(val lists:  ArrayList<TaskList>) : RecyclerView.Adapter<To
 
         // Lesson 17
         holder.listTitleTextView.text = lists[position].name
+
+        // Lesson 25
+        holder.itemView.setOnClickListener {
+            clickListener.listItemClicked(lists[position])
+        }
 
     }
 

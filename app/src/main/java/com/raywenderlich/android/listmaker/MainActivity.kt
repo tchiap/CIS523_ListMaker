@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ToDoListAdapter.TodoListClickListener {
 
     private lateinit var toDoListRecyclerView: RecyclerView
     private val listDataManager: ListDataManager  = ListDataManager(this)
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         toDoListRecyclerView = findViewById(R.id.lists_recyclerview)
         toDoListRecyclerView.layoutManager = LinearLayoutManager(this)
-        toDoListRecyclerView.adapter = ToDoListAdapter(lists)
+        toDoListRecyclerView.adapter = ToDoListAdapter(lists, this)
 
         /*
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
@@ -101,6 +101,10 @@ class MainActivity : AppCompatActivity() {
 
                 //adapter.addNewItem(todoTitleEditText.text.toString())
                 dialog.dismiss()
+
+                // Lesson 25
+                showTaskListItems(list)
+
         }
         myDialog.create().show()
 
@@ -116,5 +120,9 @@ class MainActivity : AppCompatActivity() {
         // add an extra
         taskListItem.putExtra(INTENT_LIST_KEY, list)
         startActivity(taskListItem)
+    }
+
+    override fun listItemClicked(list: TaskList) {
+        showTaskListItems(list)
     }
 }
