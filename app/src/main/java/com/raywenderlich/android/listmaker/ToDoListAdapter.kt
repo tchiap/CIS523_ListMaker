@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ToDoListAdapter : RecyclerView.Adapter<ToDoListViewHolder>() {
 
-    private val toDoLists = arrayOf("Android Development", "House Work", "Errands")
+    private val toDoLists = arrayOf("Android Development", "House Work", "Errands", "Shopping")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoListViewHolder {
 
@@ -19,7 +19,12 @@ class ToDoListAdapter : RecyclerView.Adapter<ToDoListViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ToDoListViewHolder, position: Int) {
-        TODO("Not yet implemented")
+
+        // when this method is called, we pass in a ViewHolder
+        // Lesson 9 - Bind Data
+        holder.listPositionTextView.text = (position + 1).toString()  // 0-based, so +1
+        holder.listTitleTextView.text = toDoLists[position]
+
     }
 
     override fun getItemCount(): Int {
