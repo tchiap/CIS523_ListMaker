@@ -13,7 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var toDoListRecyclerView: RecyclerView
+    private lateinit var toDoListRecyclerView: RecyclerView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,6 +81,8 @@ class MainActivity : AppCompatActivity() {
 
         myDialog.setPositiveButton(positiveButtonTitle) {
             dialog, _ ->
+                val adapter = toDoListRecyclerView.adapter as ToDoListAdapter
+                adapter.addNewItem(todoTitleEditText.text.toString())
                 dialog.dismiss()
         }
         myDialog.create().show()

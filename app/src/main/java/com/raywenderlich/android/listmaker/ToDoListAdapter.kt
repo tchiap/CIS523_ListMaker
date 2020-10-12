@@ -9,9 +9,15 @@ class ToDoListAdapter : RecyclerView.Adapter<ToDoListViewHolder>() {
     //private val toDoLists = arrayOf("Android Development", "House Work", "Errands", "Shopping")
     private var toDoLists = mutableListOf("Android Development", "House Work", "Errands", "Shopping")
 
-    // Lesson 11
-    fun addNewItem() {
-        toDoLists.add("Todo List " + (toDoLists.size + 1) )
+    // Lesson 11, 14
+    fun addNewItem(listName: String = "") {
+
+        // Lesson 14
+        if (listName.isEmpty()) {
+            toDoLists.add("Todo List " + (toDoLists.size + 1) )
+        } else {
+            toDoLists.add(listName)
+        }
 
         // simply tells the RecyclerView to reload all the data
         notifyDataSetChanged()
