@@ -1,6 +1,7 @@
 package com.raywenderlich.android.listmaker
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.view.Menu
@@ -15,7 +16,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class MainActivity : AppCompatActivity() {
 
     private lateinit var toDoListRecyclerView: RecyclerView
-    val listDataManager: ListDataManager  = ListDataManager(this)
+    private val listDataManager: ListDataManager  = ListDataManager(this)
+
+    companion object {
+        const val INTENT_LIST_KEY = "list"
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,5 +104,17 @@ class MainActivity : AppCompatActivity() {
         }
         myDialog.create().show()
 
+    }
+
+
+    // Lesson 23
+    private fun showTaskListItems(list: TaskList) {
+
+        // Create the intent
+        val taskListItem = Intent(this, DetailActivity::class.java)
+
+        // add an extra
+        taskListItem.putExtra(INTENT_LIST_KEY, list)
+        startActivity(taskListItem)
     }
 }
