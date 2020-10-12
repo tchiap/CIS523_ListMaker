@@ -1,5 +1,6 @@
 package com.raywenderlich.android.listmaker
 
+import android.content.Context
 import android.os.Bundle
 import android.text.InputType
 import android.view.Menu
@@ -14,6 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class MainActivity : AppCompatActivity() {
 
     private lateinit var toDoListRecyclerView: RecyclerView
+    val listDataManager: ListDataManager  = ListDataManager(this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
