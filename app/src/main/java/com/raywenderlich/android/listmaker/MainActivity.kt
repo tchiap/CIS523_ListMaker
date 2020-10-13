@@ -63,10 +63,13 @@ class MainActivity : AppCompatActivity(), TodoListFragment.OnFragmentInteraction
             showCreateTodoListDialog()
         }
 
-        // Lesson 34
+        // Lesson 34  -- Lesson 36, we're deleting this because we're not longer using supportFragmentManager
+        /*
         supportFragmentManager.beginTransaction()
             .add(R.id.fragment_container, todoListFragment)
             .commit()
+
+         */
 
     }
 

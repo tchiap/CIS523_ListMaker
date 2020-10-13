@@ -9,9 +9,15 @@ import android.view.ViewGroup
 
 class TaskDetailFragment : Fragment() {
 
+    lateinit var list:  TaskList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Lesson 36 -- if there are arguments...
+        arguments?.let {
+            list = it.getParcelable(ARG_LIST)!!  // (!!) we need to force unwrap it
+        }
 
     }
 
@@ -24,7 +30,17 @@ class TaskDetailFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(list: TaskList) = TaskDetailFragment()
+
+        private val ARG_LIST = "list"
+        //fun newInstance(list: TaskList) = TaskDetailFragment()
+        // Lesson 36 -- we want to create a Bundle (contains key-value pairs)
+        fun newInstance(list: TaskList)  : TaskDetailFragment {
+            val bundle = Bundle()
+            bundle.putParcelable(ARG_LIST, list)
+            val fragment = TaskDetailFragment()
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 
 }
