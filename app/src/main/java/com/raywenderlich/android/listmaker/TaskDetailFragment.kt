@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class TaskDetailFragment : Fragment() {
@@ -20,6 +22,12 @@ class TaskDetailFragment : Fragment() {
 
     lateinit var addTaskButton : FloatingActionButton
 
+    lateinit var listDataManager: ListDataManager
+
+
+
+    // Lesson 44 - we don't need onCreate() anymore - we're getting the list from the Bundle
+    /*
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -29,6 +37,10 @@ class TaskDetailFragment : Fragment() {
         }
 
     }
+
+     */
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +53,19 @@ class TaskDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Get listDataManager, then access the list
+
+        // Lesson 44 -- used ViewModelProvider and not ViewModelProviders, because ViewModelProviders is deprecated
+        listDataManager = ViewModelProvider(this).get(ListDataManager::class.java)
+
+        // Lesson 44
+        arguments?.let {
+            // get passed in args
+            val args = TaskDetailFragmentArgs.fromBundle(it)
+            list = listDataManager.readLists().filter { list -> list.name == args.listString }[0]
+        }
+
+
         // Copy and pasted from DetailActivity -- Lesson 41
 
         activity?.let {
@@ -51,12 +76,17 @@ class TaskDetailFragment : Fragment() {
             // Lesson 27
             taskListRecyclerView.adapter = TaskListAdapter(list)
 
+            // Lesson 44
+            it.toolbar?.title = list.name
+
             // Lesson 28
             addTaskButton = view.findViewById(R.id.add_task_button)
             addTaskButton.setOnClickListener {
                 showCreateTaskDialog()
             }
         }
+
+
 
     }
 
@@ -75,6 +105,7 @@ class TaskDetailFragment : Fragment() {
                         dialog, _ ->
                     val task = taskEditText.text.toString()
                     list.tasks.add(task)
+                    listDataManager.saveList(list)
                     dialog.dismiss()
                 }
                 .create()

@@ -102,13 +102,18 @@ class TodoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
     // Lesson 33
     override fun listItemClicked(list: TaskList) {
 
+        showTaskListItems(list)
         // this listener is the Activity
         //listener?.onTodoListClicked(list)  // deleted in Lesson 40
 
         // Lesson 43 - Navigation Graph
+        // Lesson 44 - We cut the code
+        /*
         view?.let {
             it.findNavController().navigate(R.id.action_todoListFragment_to_taskDetailFragment)
         }
+
+         */
     }
 
 
@@ -168,6 +173,13 @@ class TodoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
     // Lesson 40
 
     private fun showTaskListItems(list: TaskList) {
+
+        // Lesson 44
+        view?.let {
+            val action = TodoListFragmentDirections.actionTodoListFragmentToTaskDetailFragment(list.name)
+            //it.findNavController().navigate(R.id.action_todoListFragment_to_taskDetailFragment)
+            it.findNavController().navigate(action)
+        }
     }
 
 
