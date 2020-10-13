@@ -63,6 +63,11 @@ class MainActivity : AppCompatActivity(), TodoListFragment.OnFragmentInteraction
             showCreateTodoListDialog()
         }
 
+        // Lesson 34
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fragment_container, todoListFragment)
+            .commit()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
