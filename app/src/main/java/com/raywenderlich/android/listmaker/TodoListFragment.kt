@@ -1,19 +1,25 @@
 package com.raywenderlich.android.listmaker
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.InputType
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.fragment_todo_list.*
 
 
 class TodoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
 
-    private var listener: OnFragmentInteractionListener? = null
+    //private var listener: OnFragmentInteractionListener? = null
 
     private lateinit var toDoListRecyclerView: RecyclerView
     private lateinit var listDataManager: ListDataManager //  = ListDataManager(this)
@@ -37,6 +43,12 @@ class TodoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        activity?.let {
+            listDataManager = ListDataManager(it)
+        }
+
+
         val lists = listDataManager.readLists()
 
 
@@ -44,22 +56,33 @@ class TodoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
         toDoListRecyclerView.layoutManager = LinearLayoutManager(activity)
         toDoListRecyclerView.adapter = ToDoListAdapter(lists, this)
 
+        fab.setOnClickListener { _ ->
+            showCreateTodoListDialog()
+        }
+
+
+
+
     }
 
+    /*
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
-            listener = context
+            //listener = context
 
-            // Lesson 33
-            listDataManager = ListDataManager(context)
+            // Lesson 33, cut in Lesson 40
+            //listDataManager = ListDataManager(context)
         }
     }
+     */
 
+    /*
     override fun onDetach() {
         super.onDetach()
         listener = null
     }
+     */
 
     interface OnFragmentInteractionListener {
         fun onTodoListClicked(list: TaskList)
@@ -75,7 +98,7 @@ class TodoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
     override fun listItemClicked(list: TaskList) {
 
         // this listener is the Activity
-        listener?.onTodoListClicked(list)
+        //listener?.onTodoListClicked(list)  // deleted in Lesson 40
     }
 
 
@@ -91,6 +114,53 @@ class TodoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
         listDataManager.saveList(list)
         updateLists()
     }
+
+    // Lesson 40
+    private fun showCreateTodoListDialog() {
+        activity?.let {
+            val dialogTitle = getString(R.string.name_of_list)
+
+            val positiveButtonTitle = getString(R.string.create_list) // made val since we're not changing it
+
+            val myDialog = AlertDialog.Builder(it)
+            val todoTitleEditText = EditText(it)
+            todoTitleEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
+
+            myDialog.setTitle(dialogTitle)
+            myDialog.setView(todoTitleEditText)
+
+            myDialog.setPositiveButton(positiveButtonTitle) {
+                    dialog, _ ->
+                //val adapter = toDoListRecyclerView.adapter as ToDoListAdapter
+
+                // Lesson 17
+                val list = TaskList(todoTitleEditText.text.toString())
+
+                // Lesson 33, Lesson 40
+                addList(list)
+
+                //listDataManager.saveList(list)
+                //adapter.addList(list)
+
+                //adapter.addNewItem(todoTitleEditText.text.toString())
+                dialog.dismiss()
+
+                // Lesson 25
+                showTaskListItems(list)
+
+            }
+            myDialog.create().show()
+        }
+
+    }
+
+
+    // Lesson 40
+
+    private fun showTaskListItems(list: TaskList) {
+    }
+
+
 
     private fun updateLists() {
 

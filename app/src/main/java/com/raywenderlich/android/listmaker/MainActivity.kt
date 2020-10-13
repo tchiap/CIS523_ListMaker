@@ -13,13 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class MainActivity : AppCompatActivity(), TodoListFragment.OnFragmentInteractionListener {
+class MainActivity : AppCompatActivity() {
+
+    // Note:  a lot of code commented out in Lesson 40!
 
     //private lateinit var toDoListRecyclerView: RecyclerView
     //private val listDataManager: ListDataManager  = ListDataManager(this)
 
-    // Lesson 33
-    private var todoListFragment = TodoListFragment.newInstance()
+    // Lesson 33, removed in lesson 40
+    //private var todoListFragment = TodoListFragment.newInstance()
 
     companion object {
         const val INTENT_LIST_KEY = "list"
@@ -57,11 +59,15 @@ class MainActivity : AppCompatActivity(), TodoListFragment.OnFragmentInteraction
         }
          */
 
+        // Lesson 40 -- cut out the fab code
         // Lesson 13
         // Using underscore since we're not using view (gets rid of warning)
+        /*
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { _ ->
             showCreateTodoListDialog()
         }
+        */
+
 
         // Lesson 34  -- Lesson 36, we're deleting this because we're not longer using supportFragmentManager
         /*
@@ -73,12 +79,16 @@ class MainActivity : AppCompatActivity(), TodoListFragment.OnFragmentInteraction
 
     }
 
+    /*
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
+     */
+
+    /*
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
         // Lesson 29
@@ -93,6 +103,8 @@ class MainActivity : AppCompatActivity(), TodoListFragment.OnFragmentInteraction
         }
     }
 
+     */
+
     /*
     private fun updateList() {
 
@@ -103,6 +115,7 @@ class MainActivity : AppCompatActivity(), TodoListFragment.OnFragmentInteraction
 
      */
 
+    /*
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -112,11 +125,13 @@ class MainActivity : AppCompatActivity(), TodoListFragment.OnFragmentInteraction
             else -> super.onOptionsItemSelected(item)
         }
     }
+     */
 
 
 
-    // Lesson 13
+    // Lesson 13,  cut in Lesson 40 to paste it over into TodoListFragment
     // Some terminology:  modal dialog -- dialog that won't let the user do anything else with the dialog open
+    /*
     private fun showCreateTodoListDialog() {
         val dialogTitle = getString(R.string.name_of_list)
 
@@ -153,8 +168,11 @@ class MainActivity : AppCompatActivity(), TodoListFragment.OnFragmentInteraction
 
     }
 
+     */
 
-    // Lesson 23
+
+    // Lesson 23, cut in Lesson 40
+    /*
     private fun showTaskListItems(list: TaskList) {
 
         // Create the intent
@@ -165,6 +183,8 @@ class MainActivity : AppCompatActivity(), TodoListFragment.OnFragmentInteraction
         //startActivity(taskListItem)
         startActivityForResult(taskListItem, LIST_DETAIL_REQUEST_CODE)
     }
+    */
+
 
     /*
     override fun listItemClicked(list: TaskList) {
@@ -173,9 +193,12 @@ class MainActivity : AppCompatActivity(), TodoListFragment.OnFragmentInteraction
 
      */
 
-    // Lesson 33
+    // Lesson 33, deleted in Lesson 40
+    /*
     override fun onTodoListClicked(list: TaskList) {
         showTaskListItems(list)
     }
+
+     */
 
 }
