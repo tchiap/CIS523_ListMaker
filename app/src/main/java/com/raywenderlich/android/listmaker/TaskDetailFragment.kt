@@ -1,15 +1,24 @@
 package com.raywenderlich.android.listmaker
 
 import android.os.Bundle
+import android.text.InputType
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class TaskDetailFragment : Fragment() {
 
     lateinit var list:  TaskList
+    lateinit var taskListRecyclerView: RecyclerView
+
+    lateinit var addTaskButton : FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +36,53 @@ class TaskDetailFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_task_detail, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Copy and pasted from DetailActivity -- Lesson 41
+
+        activity?.let {
+            // Lesson 26
+            taskListRecyclerView = view.findViewById(R.id.task_list_recyclerview)
+            taskListRecyclerView.layoutManager = LinearLayoutManager(it)
+
+            // Lesson 27
+            taskListRecyclerView.adapter = TaskListAdapter(list)
+
+            // Lesson 28
+            addTaskButton = view.findViewById(R.id.add_task_button)
+            addTaskButton.setOnClickListener {
+                showCreateTaskDialog()
+            }
+        }
+
+    }
+
+    private fun showCreateTaskDialog() {
+
+        // Lesson 41
+        activity?.let {
+            // Lesson 28
+            val taskEditText = EditText(it)
+            taskEditText.inputType = InputType.TYPE_CLASS_TEXT
+
+            AlertDialog.Builder(it)
+                .setTitle(R.string.task_to_add)
+                .setView(taskEditText)
+                .setPositiveButton(R.string.add_task) {
+                        dialog, _ ->
+                    val task = taskEditText.text.toString()
+                    list.tasks.add(task)
+                    dialog.dismiss()
+                }
+                .create()
+                .show()
+        }
+
+
+
     }
 
     companion object {

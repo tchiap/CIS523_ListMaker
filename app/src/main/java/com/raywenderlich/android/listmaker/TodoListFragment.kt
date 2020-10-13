@@ -11,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -43,9 +45,11 @@ class TodoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        // If the activity exists, then we want to pass the context into the ListDataManager
         activity?.let {
-            listDataManager = ListDataManager(it)
+            //listDataManager = ListDataManager(it)
+            //listDataManager = ViewModelProviders.of(this).get(ListDataManager::class.java)
+            listDataManager = ViewModelProvider(this).get(ListDataManager::class.java)
         }
 
 

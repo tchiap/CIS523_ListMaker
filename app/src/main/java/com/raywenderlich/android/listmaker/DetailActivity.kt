@@ -13,11 +13,17 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class DetailActivity : AppCompatActivity() {
 
-    lateinit var list: TaskList
-    lateinit var taskListRecyclerView: RecyclerView
 
-    lateinit var addTaskButton : FloatingActionButton
+    // Note:  all code cleared out in Lesson 41 because we don't need it.
 
+
+    //lateinit var list: TaskList
+
+    // Cut in Lesson 41
+    //lateinit var taskListRecyclerView: RecyclerView
+    //lateinit var addTaskButton : FloatingActionButton
+
+    /*
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,20 +33,12 @@ class DetailActivity : AppCompatActivity() {
         list = intent.getParcelableExtra(MainActivity.INTENT_LIST_KEY) as TaskList
         title = list.name
 
-        // Lesson 26
-        taskListRecyclerView = findViewById(R.id.task_list_recyclerview)
-        taskListRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Lesson 27
-        taskListRecyclerView.adapter = TaskListAdapter(list)
-
-        // Lesson 28
-        addTaskButton = findViewById(R.id.add_task_button)
-        addTaskButton.setOnClickListener {
-            showCreateTaskDialog()
-        }
     }
 
+     */
+
+    /*
     private fun showCreateTaskDialog() {
 
         // Lesson 28
@@ -61,6 +59,9 @@ class DetailActivity : AppCompatActivity() {
 
     }
 
+     */
+
+    /*
     override fun onBackPressed() {
 
         // Lesson 29
@@ -75,4 +76,6 @@ class DetailActivity : AppCompatActivity() {
 
         super.onBackPressed()
     }
+
+     */
 }
