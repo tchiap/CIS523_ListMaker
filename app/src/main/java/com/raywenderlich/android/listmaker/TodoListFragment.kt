@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -60,7 +61,7 @@ class TodoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
         toDoListRecyclerView.layoutManager = LinearLayoutManager(activity)
         toDoListRecyclerView.adapter = ToDoListAdapter(lists, this)
 
-        fab.setOnClickListener { _ ->
+        view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { _ ->
             showCreateTodoListDialog()
         }
 
@@ -103,6 +104,11 @@ class TodoListFragment : Fragment(), ToDoListAdapter.TodoListClickListener {
 
         // this listener is the Activity
         //listener?.onTodoListClicked(list)  // deleted in Lesson 40
+
+        // Lesson 43 - Navigation Graph
+        view?.let {
+            it.findNavController().navigate(R.id.action_todoListFragment_to_taskDetailFragment)
+        }
     }
 
 

@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -23,16 +24,23 @@ class MainActivity : AppCompatActivity() {
     // Lesson 33, removed in lesson 40
     //private var todoListFragment = TodoListFragment.newInstance()
 
+
+    // Deleting in Lesson 43 because we've created our nav_graph
+    /*
     companion object {
         const val INTENT_LIST_KEY = "list"
         const val LIST_DETAIL_REQUEST_CODE = 123
     }
+     */
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
+
+        // Lesson 43
+        Navigation.findNavController(this, R.id.nav_host_fragment)
 
         // Lesson 17
         /*
